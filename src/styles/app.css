@@ -1,0 +1,152 @@
+
+:root {
+  --clr-dark: #000;
+  --clr-light: #fff;
+  --clr-accent: #cc83d4;
+  --clr-accent-alt: #61dafb;
+  --ff-space_mono: "Space Mono", monospace;
+  --fs-logo: 5em;
+  --fs-img: 15em;
+  --fs-h1: 4.5rem;
+  --fs-h2: 2.5rem;
+  --fs-h3: 1.5rem;
+  --fs-h4: 1.125rem;
+  --fs-body: 1rem;
+  --fs-small: 0.9rem;
+}
+
+@media (max-width: 800px) {
+  :root {
+    --fs-logo: 4em;
+    --fs-img: 10em;
+    --fs-h1: 3rem;
+    --fs-h2: 2rem;
+    --fs-h3: 1.25rem;
+    --fs-h4: 1rem;
+    --fs-body: 0.875rem;
+    --fs-small: 0.775rem;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: -webkit-fill-available;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: var(--clr-light);
+  background-color: var(--clr-dark);
+  font-family: var(--ff-space_mono);
+  font-size: var(--fs-body);
+}
+
+footer {
+  text-align: center;
+  opacity: 0.5;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  display: inline-block;
+  background: none;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: 400;
+}
+h2 {
+  font-size: var(--fs-h2);
+}
+h3 {
+  font-size: var(--fs-h3);
+}
+h4 {
+  font-size: var(--fs-h4);
+}
+
+p {
+  word-spacing: 1.4px;
+}
+
+
+/* TRANSITION CSS*/
+.page-container {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+
+.route-wrapper {
+  position: absolute;
+  width: 100%;
+  will-change: opacity, transform, filter;
+}
+
+
+.route-enter {
+  opacity: 0;
+  transform: translateY(15px) scale(0.98);
+  filter: blur(6px);
+}
+.route-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  transition:
+    opacity var(--route-ms, 520ms) ease,
+    transform var(--route-ms, 520ms) cubic-bezier(.2,.7,.2,1),
+    filter var(--route-ms, 520ms) ease;
+}
+
+
+.route-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+.route-exit-active {
+  opacity: 0;
+  transform: translateY(-15px) scale(0.99);
+  filter: blur(4px);
+  transition:
+    opacity var(--route-ms, 520ms) ease,
+    transform var(--route-ms, 520ms) cubic-bezier(.2,.7,.2,1),
+    filter var(--route-ms, 520ms) ease;
+}
+
+@media (max-width: 767px) {
+  .route-enter-active,
+  .route-exit-active {
+    --route-ms: 240ms;
+  }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .route-enter,
+  .route-exit,
+  .route-enter-active,
+  .route-exit-active {
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

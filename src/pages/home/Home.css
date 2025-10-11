@@ -1,0 +1,61 @@
+.home-wrapper {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  overflow: hidden;
+}
+
+.announcement {
+  position: relative;
+  top: 150px;
+  text-align: center;
+  margin: 0 10px 0 10px;
+  font-size: 1em;
+}
+
+.ep-link {
+  position: relative;
+  color: var(--clr-accent-alt);
+  transition: color .2s ease;
+  text-decoration: none;
+}
+
+.ep-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  margin: 0 auto;
+  background-image: linear-gradient(90deg, var(--clr-accent), var(--clr-accent-alt));
+}
+.ep-link:hover::after { width: 0%;  transition: width 1s ease; }
+
+.ep-link:hover {
+  background-image: linear-gradient(90deg, var(--clr-accent-alt), var(--clr-accent));
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+
+
+  -webkit-background-clip: text;  /* Safari/Chrome */
+  background-clip: text;          /* Firefox */
+  color: transparent;             /* Firefox */
+  -webkit-text-fill-color: transparent; /* Safari/Chrome */
+
+  animation: gradient-sweep 1s ease forwards;
+}
+
+/* sweep from left -> right */
+@keyframes gradient-sweep {
+  to { background-position: 100% 50%; }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .ep-link:hover { animation: none; }
+  .ep-link::after { transition: none; }
+}

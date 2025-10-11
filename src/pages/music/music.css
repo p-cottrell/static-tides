@@ -1,0 +1,53 @@
+.music {
+  padding: clamp(48px, 8vw, 96px) clamp(16px, 4vw, 32px);
+  min-height: 100dvh;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+}
+
+
+.music-container {
+  width: min(100%, 1100px);
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: clamp(12px, 2.5vw, 24px);
+}
+
+
+.music-title {
+  margin: 0;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+}
+
+.music-subtitle {
+  margin: 0;
+  opacity: 0.85;
+
+}
+
+
+.music-figure {
+  margin: 0;
+  display: grid;
+  gap: clamp(12px, 2vw, 20px);
+  justify-items: center;
+}
+
+.music-art {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+}
+
+.music-credits-list {
+  list-style: none;
+  padding: 0;
+  margin: clamp(12px, 2vw, 20px) 0 0 0;
+  display: grid;
+  gap: 0.5rem;
+  font-size: clamp(0.9rem, 0.6vw + 0.8rem, .75rem);
+  opacity: 0.95;
+}

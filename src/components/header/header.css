@@ -1,0 +1,49 @@
+/* The overlay bar, centered */
+.title-container {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+.title-link {
+  pointer-events: auto;
+  text-decoration: none;
+  color: inherit;
+}
+
+.title {
+  white-space: nowrap;
+  line-height: 1;
+  font-size: clamp(1.25rem, 6vw, 3rem);
+  margin: 0;
+  color: transparent;
+  background-image: url('../../img/title-bg.png');
+  background-size: 300%;
+  background-position-y: top;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate-background 5s infinite alternate ease;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.2em;
+
+  }
+}
+
+@keyframes animate-background {
+  0%   { background-position: 0 50%; }
+  100% { background-position: 100% 50%; }
+}
+

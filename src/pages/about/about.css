@@ -1,0 +1,61 @@
+/* ==== Layout shell ==== */
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  min-height: 100dvh;
+  padding: clamp(2rem, 5vw, 4rem) 1.25rem;
+  overflow-x: hidden;
+}
+
+
+/* ==== Hero section ==== */
+.about-hero {
+  text-align: center;
+  margin-bottom: clamp(2rem, 6vw, 4rem);
+}
+
+.about-title {
+  position: relative;
+  top: 90px;
+  text-align: center;
+  margin: 0 10px 0 10px;
+  font-size: 1em;
+}
+
+/* ==== Content blocks ==== */
+.about-content {
+  position: relative;
+  top: 100px;
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  width: min(100%, 900px);
+}
+
+.about-text {
+  line-height: 1.7;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.about-heading {
+  font-size: 1.5rem;
+  color: var(--clr-accent-alt);
+  margin-bottom: 0.5rem;
+}
+
+/* ==== Planet section ==== */
+.about-planets {
+  margin-top: clamp(3rem, 8vw, 6rem);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ==== Responsive tweaks ==== */
+@media (max-width: 768px) {
+  .about-text {
+    font-size: 0.95rem;
+  }
+}
