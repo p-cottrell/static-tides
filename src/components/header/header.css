@@ -1,13 +1,12 @@
-/* The overlay bar, centered */
-.title-container {
-  position: absolute;
-  top: 25px;
+.header-container {
+  position: fixed;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
   z-index: 10;
-  pointer-events: none;
+  background: #000;
+  padding: 25px 0 25px 0;
 }
 
 
@@ -20,8 +19,9 @@
 .title {
   white-space: nowrap;
   line-height: 1;
-  font-size: clamp(1.25rem, 6vw, 3rem);
+  font-size: 3em;
   margin: 0;
+  width: 100%;
   color: transparent;
   background-image: url('../../img/title-bg.png');
   background-size: 300%;
@@ -32,18 +32,135 @@
   animation: animate-background 5s infinite alternate ease;
 }
 
+.hamburger-button {
+  position: fixed;
+  top: 1.6rem;
+  right: 1rem;
+  z-index: 9999;
+  cursor: pointer;
+  margin: 0;
+}
 
+.menu {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color:  #000;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item-wrapper {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: end;  
+  gap: 3rem;
+  padding-top: 20vh;
+  padding-bottom: 20vh;
+}
+
+
+.menu-item {
+  position: relative;
+  display: block;
+  line-height: 1.1;
+  font-size: 5rem;
+  letter-spacing: 0.02em;
+  left: 10px
+}
+
+
+.menu-item a {
+  display: inline-block;
+  padding: .25rem .5rem;
+  color: #fff;
+  text-decoration: none;
+  transition: color 220ms ease;
+  outline: none;
+}
+
+
+.menu-item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: -6px;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent-alt));
+  transition: width 260ms cubic-bezier(.2,.6,.2,1);
+}
+
+
+.menu-item a:hover,
+.menu-item a:focus-visible {
+  color: #fdf;
+}
+.menu-item a:hover::after,
+.menu-item a:focus-visible::after {
+  width: 100%;
+}
+
+
+.menu-item a:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+
+.menu-item {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: menu-fade-up 320ms ease forwards;
+}
+.menu-item:nth-child(1) { animation-delay: 40ms; }
+.menu-item:nth-child(2) { animation-delay: 90ms; }
+.menu-item:nth-child(3) { animation-delay: 140ms; }
+.menu-item:nth-child(4) { animation-delay: 190ms; }
+
+@keyframes menu-fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
 
 
 @media (max-width: 768px) {
   .title {
     font-size: 1.2em;
-
+    margin-left: 10%;
   }
+  .header-container {
+  justify-content: space-between
+  }
+  .hamburger-button {
+  top: .5rem;
+  right: 1rem;
+  }
+  .menu-item-wrapper { gap: 2rem; }
+  .menu-item a { padding: .35rem .6rem; }
+
+  .menu-item {
+  font-size: 3rem;
 }
+}
+
+
+
 
 @keyframes animate-background {
   0%   { background-position: 0 50%; }
   100% { background-position: 100% 50%; }
 }
+
+
 

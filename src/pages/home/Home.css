@@ -1,14 +1,12 @@
 .home-wrapper {
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: -webkit-fill-available;
+  height: 100vh;
   overflow: hidden;
 }
 
 .announcement {
   position: relative;
-  top: 150px;
+  top: 100px;
   text-align: center;
   margin: 0 10px 0 10px;
   font-size: 1em;
@@ -49,7 +47,7 @@
   animation: gradient-sweep 1s ease forwards;
 }
 
-/* sweep from left -> right */
+/* Smooth sweep from left -> right */
 @keyframes gradient-sweep {
   to { background-position: 100% 50%; }
 }

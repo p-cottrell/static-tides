@@ -18,10 +18,10 @@ export const Music = () => {
           />
           <figcaption className="music-credits">
             <ul className="music-credits-list">
-              <li>Cover photography — Ellie Cottrell</li>
-              <li>Written & produced — Paul Cottrell</li>
-              <li>Mastering — Al "Alien" Smith</li>
-              <li>© Paul Cottrell</li>
+              <li>Cover photography - Ellie Cottrell</li>
+              <li>Written & produced - Paul Cottrell</li>
+              <li>Mastering - Al "Alien" Smith</li>
+              <li>Copyright - Paul Cottrell</li>
             </ul>
           </figcaption>
         </figure>
