@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'StaticMonoAAlt';
+  src: url('/fonts/StaticMono-Regular.woff2') format('woff2'),
+       url('/fonts/StaticMono-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --clr-dark: #000;
@@ -16,6 +24,7 @@
   --fs-small: 0.9rem;
 }
 
+
 @media (max-width: 800px) {
   :root {
     --fs-h1: 3rem;
@@ -25,6 +34,13 @@
     --fs-body: 0.875rem;
     --fs-small: 0.775rem;
   }
+}
+
+.particles-canvas {
+  position: fixed;
+  inset: 0;               /* top:0 right:0 bottom:0 left:0 */
+  z-index: -1;            /* behind everything */
+  pointer-events: none;   /* clicks pass through */
 }
 
 
@@ -79,6 +95,7 @@ p {
 
 .page-container {
   min-height: calc(100svh - var(--header-h) - var(--footer-h));
+  z-index: 1;
 }
 
 /* TRANSITION CSS*/

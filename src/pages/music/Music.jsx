@@ -1,6 +1,6 @@
 import React from "react";
 import "./Music.css";
-import albumArt from "../../img/burning-bright.png";
+import albumArt from "../../img/burning-bright-alt.png";
 
 export const Music = () => {
   return (
