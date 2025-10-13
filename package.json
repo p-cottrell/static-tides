@@ -1,4 +1,5 @@
 {
+  "homepage": "https://p-cottrell-github.io/static-tides",
   "name": "react-platformpro-prototype",
   "version": "0.1.0",
   "private": true,
@@ -19,7 +20,9 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": "react-app"
