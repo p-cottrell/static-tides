@@ -5,13 +5,11 @@ import Planets from "../../components/planets/Planets";
 export const About = () => {
   return (
     <main className="about">
-      <section className="about-hero">
+
+      <section className="about-content">
         <p className="about-title">
           A sonic journey through light and shadow.
         </p>
-      </section>
-
-      <section className="about-content">
         <div className="about-text">
           <h2 className="about-heading">The Story</h2>
           <p>

@@ -6,7 +6,7 @@
 
 .announcement {
   position: relative;
-  top: 100px;
+  top: 160px;
   text-align: center;
   margin: 0 10px 0 10px;
   font-size: 1em;
@@ -57,3 +57,5 @@
   .ep-link:hover { animation: none; }
   .ep-link::after { transition: none; }
 }
+
+
