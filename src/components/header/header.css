@@ -135,7 +135,7 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .title {
     font-size: 1.2em;
     margin-left: 10%;
@@ -156,6 +156,15 @@
 }
 }
 
+@media (max-height: 667px) {
+  .announcement {
+  top: 60px;
+  }
+  .hamburger-button {
+  top: .5rem;
+  right: .5rem;
+  }
+}
 
 
 

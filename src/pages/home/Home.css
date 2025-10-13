@@ -58,4 +58,10 @@
   .ep-link::after { transition: none; }
 }
 
+@media (max-height: 667px) {
+  .announcement {
+  top: 60px;
+  }
+}
+
 

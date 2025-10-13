@@ -108,7 +108,7 @@
 }
 
 /* positions + colors */
-.planets .planet1 { --planet-color:#cc83d4; --planet-size:40px; top:100px; left:-7px; }
+.planets .planet1 { --planet-color:#cc83d4; --planet-size:40px; top:10px; left:65px; }
 .planets .planet2 { --planet-color:#059bc4; --planet-size:33px; bottom:130px; left:80px; }
 .planets .planet3 { --planet-color:#61dafb; --planet-size:24px; top:150px; right:60px; }
 .planets .planet4 { --planet-color:#ff615d; --planet-size:30px; bottom:50px; right:105px; }
