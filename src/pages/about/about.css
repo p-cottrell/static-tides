@@ -1,8 +1,13 @@
 .about {
   min-height: 100dvh;
   overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
 }
 
+.about h1 { 
+  margin-top: calc(var(--header-h) + 20px);
+}
 
 .about section {
   margin-bottom: clamp(6vh, 10vh + 1vw, 28vh);
@@ -22,14 +27,19 @@
   height: auto;
 }
 
-/* just using this to display h2s as h1s*/
-.display {
-  font-size: var(--fs-h1);
-  letter-spacing: -0.015em;
-}
+
 .about h1,
-.about .display {
+.about h2 {
   margin-block-end: clamp(8px, 1.6vw, 24px);
+  font-size: 40px;
+  text-wrap: nowrap;
+}
+
+@media (max-width: 900px) {
+  .about h1,
+  .about h2 {
+       font-size: 25px;
+    }
 }
 
 .right { text-align: right; }
@@ -64,21 +74,7 @@
   grid-area: 1 / 1;
 }
 
-/* make the heading legible over the image */
-.last h2 {
-  color: var(--clr-dark);
-  padding: 0.4em 0.8em;
-  border-radius: 4px;
-  text-shadow: 5px 5px 2px #fff, -5px -5px 2px pink;
-  font-weight: 700;
-}
-
 @media (max-width: 700px) {
-    .last h2 {
-    font-size: 2em;
-    text-shadow: 3px 3px 2px #fff, -3px -3px 2px pink;
-    font-weight: 700;
-  }
   .last{
     padding-bottom: calc(var(--footer-h) + 20px)
   }

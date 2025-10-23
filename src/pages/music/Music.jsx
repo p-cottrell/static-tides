@@ -1,9 +1,16 @@
 import React from "react";
 import "./Music.css";
+import VFXScope from "../../components/VFXScope/VFXScope.jsx"
 import albumArt from "../../img/burning-bright-alt.png";
 
 export const Music = () => {
   return (
+    <VFXScope
+          selectors="h1, img"
+          strengthDesktop={0.30}
+          strengthPhone={0.15}
+          mode="auto"
+        >
     <main className="music">
       <section className="music-container">
         <h1 className="music-title">burning bright EP</h1>
@@ -27,5 +34,6 @@ export const Music = () => {
         </figure>
       </section>
     </main>
+    </VFXScope>
   );
 };

@@ -1,99 +1,269 @@
+/* Contact.css */
 
+/* --- Page area respects fixed header/footer and safe areas --- */
 .contact {
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  /* Fill the viewport minus header & footer heights */
+  min-height: calc(100dvh - var(--header-h) - var(--footer-h));
+
+  /* Safe, breathable padding with header/footer offsets */
+  padding: max(1rem, env(safe-area-inset-top))
+           max(1rem, env(safe-area-inset-right))
+           max(1rem, env(safe-area-inset-bottom))
+           max(1rem, env(safe-area-inset-left));
+
+  /* Ensure content never tucks under a fixed header */
+  padding-top: var(--header-h);
+  /* And never sits on top of the fixed footer */
+  padding-bottom: var(--footer-h);
+
+  display: grid;
+  place-items: center;
 }
 
+/* --- Card --- */
 .contact-container {
-  width: min(90%, 600px);
+  width: min(92%, 720px);
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
-  padding: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.25rem, 3.5vw, 2.25rem);
   backdrop-filter: blur(6px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 640px) {
+  .contact-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    padding: 0;
+  }
 }
 
 .contact-title {
   text-align: center;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
   background: #fff;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem;
 }
 
 .contact-subtitle {
   text-align: center;
-  font-size: 1rem;
-  opacity: 0.8;
-  margin-bottom: 2rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  opacity: 0.85;
+  margin: 0 0 1.5rem;
 }
 
+/* --- Form --- */
 .contact-form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 1rem;
+}
+
+.form-row {
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.two-col {
+  /* Becomes 2 columns on ≥640px */
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .two-col {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .contact-form label {
   font-size: 0.9rem;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .contact-form input,
 .contact-form textarea {
-  resize:vertical;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
+  width: 100%;
+  resize: vertical;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
   font-size: 1rem;
+  color: rgba(255, 255, 255, 0.95);
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  color: rgba(255, 255, 255, 0.9);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
-  box-shadow: 0 0 0 4px rgba(255, 195, 31, 0.2);
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  opacity: 0.65;
 }
 
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  border-color: #00f0ff);
+  box-shadow: 0 0 0 4px #00f0ff;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+/* Better tap targets on mobile */
+@media (max-width: 480px) {
+  .contact-form input,
+  .contact-form textarea {
+    padding: 0.9rem 1rem;
+  }
+}
+
+/* --- Button --- */
 .btn-send {
-  border: none;
-  border-radius: 8px;
-  padding: 0.9rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem 2rem;
+  font-family: 'Space Mono', monospace;
   font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+
+  color: #00f0ff;
+  background: linear-gradient(90deg, #300060, #000814);
+  border: 2px solid #00f0ff;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.15s ease, filter 0.2s ease;
+
+  text-shadow: 0 0 6px #00f0ff;
+  box-shadow:
+    inset 0 0 12px rgba(0, 240, 255, 0.3),
+    0 0 18px rgba(0, 240, 255, 0.25);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease,
+    background 0.3s ease,
+    color 0.25s ease;
+  overflow: hidden;
 }
 
+/* Glow sweep on hover */
+.btn-send::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(0, 255, 255, 0.4),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: left 0.6s ease;
+}
+
+.btn-send:hover::before {
+  left: 125%;
+}
+
+/* Hover: brighter, levitating neon */
 .btn-send:hover {
   transform: translateY(-2px);
-  filter: brightness(1.05);
+  color: #ff3af0;
+  border-color: #ff3af0;
+  text-shadow: 0 0 8px #ff3af0;
+  box-shadow:
+    inset 0 0 15px rgba(255, 58, 240, 0.3),
+    0 0 25px rgba(255, 58, 240, 0.5),
+    0 0 40px rgba(0, 240, 255, 0.3);
 }
 
+/* Active: pressed terminal flicker */
+.btn-send:active {
+  transform: translateY(1px) scale(0.98);
+  animation: crt-flicker 0.3s linear;
+}
+
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  20%, 60% { opacity: 0.5; }
+  40%, 80% { opacity: 0.2; }
+}
+
+/* scanlines overlay */
+.btn-send::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.05) 0,
+    rgba(255,255,255,0.05) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  border-radius: 8px;
+}
+
+/* Disabled state */
+.btn-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: grayscale(1);
+}
+
+/* Active: quick "flicker" press effect */
+.btn-send:active {
+  transform: translateY(0);
+  filter: brightness(0.9);
+  animation: flicker 0.25s linear 1;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+}
+
+/* Disabled: muted glow */
+.btn-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: grayscale(0.7);
+}
+
+
+/* --- Status --- */
 .form-status {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   text-align: center;
   font-size: 0.95rem;
+  min-height: 1.25em; /* reserves space to prevent layout shift */
 }
-.form-status.success {
-  color: #6bff88;
-}
-.form-status.error {
-  color: #ff7a7a;
-}
+.form-status.success { color: #6bff88; }
+.form-status.error   { color: #ff7a7a; }
 
-/* Responsive tweak */
-@media (max-width: 480px) {
-  .contact-container {
-    padding: 1.5rem;
+/* Motion-respect */
+@media (prefers-reduced-motion: reduce) {
+  .btn-send,
+  .contact-form input,
+  .contact-form textarea {
+    transition: none;
   }
 }
