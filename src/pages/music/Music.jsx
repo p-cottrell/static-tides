@@ -6,7 +6,7 @@ import albumArt from "../../img/burning-bright.png";
 export const Music = () => {
   return (
     <VFXScope
-          selectors="h1, img"
+          selectors="h1"
           strengthDesktop={0.30}
           strengthPhone={0.15}
           mode="auto"

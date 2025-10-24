@@ -1,21 +1,10 @@
 /* Contact.css */
 
-/* --- Page area respects fixed header/footer and safe areas --- */
+
 .contact {
-  /* Fill the viewport minus header & footer heights */
   min-height: calc(100dvh - var(--header-h) - var(--footer-h));
-
-  /* Safe, breathable padding with header/footer offsets */
-  padding: max(1rem, env(safe-area-inset-top))
-           max(1rem, env(safe-area-inset-right))
-           max(1rem, env(safe-area-inset-bottom))
-           max(1rem, env(safe-area-inset-left));
-
-  /* Ensure content never tucks under a fixed header */
   padding-top: var(--header-h);
-  /* And never sits on top of the fixed footer */
   padding-bottom: var(--footer-h);
-
   display: grid;
   place-items: center;
 }
@@ -27,11 +16,11 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   padding: clamp(1.25rem, 3.5vw, 2.25rem);
-  backdrop-filter: blur(6px);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
-@media (max-width: 640px) {
+/* --- Card disappears on phones--- */
+@media (max-width: 676px) {
   .contact-container {
     background: transparent;
     border: none;
@@ -42,13 +31,15 @@
 }
 
 .contact-title {
-  text-align: center;
-  font-size: clamp(1.8rem, 4.5vw, 3rem);
-  background: #fff;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin: 0 0 0.5rem;
+  margin: 0;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+}
+
+@media (max-width: 676px) {
+  .contact-title  {
+    margin-bottom: 10px;
+  }
 }
 
 .contact-subtitle {
@@ -67,8 +58,8 @@
 .form-row {
   display: grid;
   gap: 1rem;
+  min-height: 2.75rem;
 }
-
 .field {
   display: grid;
   gap: 0.5rem;

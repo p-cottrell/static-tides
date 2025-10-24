@@ -4,6 +4,7 @@ import emailjs from "@emailjs/browser";
 import VFXScope from "../../components/VFXScope/VFXScope.jsx"
 import "./Contact.css";
 
+
 export const Contact = () => {
   const form = useRef();
   const [status, setStatus] = useState(null); // "success" | "error" | null
@@ -33,9 +34,15 @@ export const Contact = () => {
   };
 
   return (
+    <VFXScope
+              selectors="h1"
+              strengthDesktop={0.30}
+              strengthPhone={0.15}
+              mode="scoped"
+            >
     <main className="contact" role="main">
+      <h1 id="contact-title" className="contact-title">contact me</h1>
       <section className="contact-container" aria-labelledby="contact-title">
-        <h1 id="contact-title" className="contact-title">Get in Touch</h1>
         <p className="contact-subtitle">
           Have a gig in mind or just want to say hello? Fill out the form and I’ll get back to you soon.
         </p>
@@ -81,7 +88,6 @@ export const Contact = () => {
               />
             </div>
           </div>
-          
           <button type="submit" className="btn-send" disabled={isSending}>
             {isSending ? "Sending…" : "Send Message"}
           </button>
@@ -97,6 +103,7 @@ export const Contact = () => {
         </form>
       </section>
     </main>
+    </VFXScope>
   );
 };
 

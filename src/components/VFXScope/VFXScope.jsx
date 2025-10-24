@@ -2,11 +2,6 @@ import React from "react";
 
 /* ============================================================
    ADJUSTABLE CONSTANTS
-   ------------------------------------------------------------
-   Notes:
-   - Pixel-like values (e.g. jitter) are applied in UV space by
-     dividing by resolution.x so they stay resolution-independent.
-   - Thresholds are probabilities between 0..1 (closer to 1 = rarer).
 ============================================================ */
 const DEFAULTS = {
   // Intensity scaling
@@ -17,33 +12,36 @@ const DEFAULTS = {
   chromaDesktop:   0.8,
   chromaPhone:     0.5,
 
-  // Major “glitch” step: max horizontal jump (in *pixels* before scaling)
+  // Major/Minor jitter magnitudes (in pixels @ 1920 baseline)
   jitterMajorPx:   0.015 * 1920,
-  // Minor sine wobble amplitude (in *pixels* before scaling)
   jitterMinorPx:   0.008 * 1920,
 
   // How often glitches happen (0..1). Higher = rarer.
-  jitterThreshMajor: 0.97,  // occasional
-  jitterThreshMinor: 0.985, // rarer than sine wobble
+  jitterThreshMajor: 0.97,
+  jitterThreshMinor: 0.985,
 
-  // Sine wobble horizontal frequency
+  // Sine wobble frequency
   sineFreq: 6.0,
 
   // Responsive scaling clamp
-  scaleRefPx:   1080.0, // reference “design” size in px (used to scale intensity)
-  scaleMin:     0.60,   // don’t let scale drop below this on small screens
-  scaleMax:     1.00,   // don’t exceed this on big screens
+  scaleRefPx:   1080.0,
+  scaleMin:     0.60,
+  scaleMax:     1.00,
 
   // Selector list to target
   selectors: "img,h1,h2,p",
 
   // Layout mode
   mode: "auto", // "auto" | "fixed" | "scoped"
+
+  // NEW: Rounded corners mask (in CSS pixels)
+  borderRadiusPx: 16,
+  // NEW: Soft edge feather around the rounded corners (in pixels)
+  edgeFeatherPx:  1.5,
 };
 
 /* ============================================================
-   Per-element shader WITH chromatic aberration + adjustable knobs
-   All tunables come through uniforms so you can change them live.
+   Per-element shader WITH chromatic aberration + rounded mask
 ============================================================ */
 const ELEM_SHADER = `
 precision highp float;
@@ -58,26 +56,37 @@ uniform float strength;      // 0..1
 uniform float chromaPx;      // split in pixels
 
 // jitter controls (pixels converted to UV inside)
-uniform float jitterMajorPx; // major jump magnitude in pixels
-uniform float jitterMinorPx; // minor sine wobble magnitude in pixels
-uniform float jitterThreshMajor; // 0..1, higher => rarer
-uniform float jitterThreshMinor; // 0..1, higher => rarer
-uniform float sineFreq;          // horizontal sine frequency
+uniform float jitterMajorPx;
+uniform float jitterMinorPx;
+uniform float jitterThreshMajor;
+uniform float jitterThreshMinor;
+uniform float sineFreq;
 
 // responsive scaling
-uniform float scaleRefPx;    // reference px (e.g. 1080)
-uniform float scaleMin;      // min multiplier
-uniform float scaleMax;      // max multiplier
+uniform float scaleRefPx;
+uniform float scaleMin;
+uniform float scaleMax;
+
+// NEW: rounded-corner mask (pixels)
+uniform float borderRadiusPx;
+uniform float edgeFeatherPx;
 
 out vec4 outColor;
 
 vec4 readTex(vec2 uv) {
-  vec4 c = texture(src, uv);
-  // soft edge fade (not a blur)
-  c.a *= smoothstep(.5, .499, abs(uv.x - .5)) * smoothstep(.5, .499, abs(uv.y - .5));
-  return c;
+  return texture(src, uv);
 }
+
 float rand(vec2 p){ return fract(sin(dot(p, vec2(829.,483.))) * 394.); }
+
+/* Signed distance to rounded rectangle centered at 0 with half-size b and radius r.
+   p: point in [-.5..+.5] space (we'll map uv -> p)
+   b: half-size AFTER subtracting r (so b ~ vec2(.5-r))
+   r: corner radius in same units as p (normalized) */
+float sdRoundBox(vec2 p, vec2 b, float r) {
+  vec2 q = abs(p) - b;
+  return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+}
 
 void main() {
   vec2 uv = (gl_FragCoord.xy - offset) / resolution;
@@ -88,8 +97,8 @@ void main() {
   float s = strength * scale;
 
   /* ---------- random triggers (rare, tiny horizontal shifts) ---------- */
-  float r  = rand(vec2(floor(time * 37.), id));
-  float r2 = rand(vec2(floor(time * 29.), id + 10.));
+  float r  = rand(vec2(floor(time * 37.0), id));
+  float r2 = rand(vec2(floor(time * 29.0), id + 10.0));
 
   // convert pixel magnitudes -> UV; also scale by intensity
   float majorUV = (jitterMajorPx / resolution.x) * s;
@@ -106,7 +115,7 @@ void main() {
   }
 
   /* ---------- Chromatic aberration (RGB split) ---------- */
-  float split = (chromaPx / resolution.x) * (0.75 + 0.25 * s); // small link to intensity
+  float split = (chromaPx / resolution.x) * (0.75 + 0.25 * s);
 
   vec2 uvr = uv; uvr.x += split;   // red sample shifted +X
   vec2 uvg = uv;                   // green center
@@ -116,25 +125,47 @@ void main() {
   vec4 cg = readTex(uvg);
   vec4 cb = readTex(uvb);
 
-  // Combine channels (preserve alpha similarly to your original style)
-  outColor = vec4(cr.r, cg.g, cb.b, (cr.a + cg.a + cb.a) / 1.0);
+  // Base (unmasked) color/alpha
+  vec3 rgb = vec3(cr.r, cg.g, cb.b);
+  float a0 = (cr.a + cg.a + cb.a) / 1.0;
+
+  /* ---------- Rounded-corner alpha mask ---------- */
+  // Convert CSS pixel radius -> normalized radius in "p space"
+  // Map uv [0..1] -> p [-0.5..+0.5]
+  vec2 p = uv - 0.5;
+
+  // Normalize radius in each axis based on resolution
+  float rNormX = borderRadiusPx / resolution.x;
+  float rNormY = borderRadiusPx / resolution.y;
+  // Use the smaller axis to keep corners circular visually
+  float rNorm  = min(rNormX, rNormY);
+
+  // Half-size of the box minus radius (box is 1x1 in uv -> .5 halves)
+  vec2 b = vec2(0.5 - rNorm);
+
+  // Signed distance to rounded box (negative = inside)
+  float d = sdRoundBox(p, b, rNorm);
+
+  // Feather in normalized units (convert px -> uv using min axis)
+  float feather = edgeFeatherPx / min(resolution.x, resolution.y);
+
+  // Mask: 1 inside, 0 outside, smooth edge
+  float mask = 1.0 - smoothstep(0.0, feather, d);
+
+  // Final alpha with mask; premultiply for clean edges
+  float a = a0 * mask;
+  outColor = vec4(rgb * a, a);
 }
 `;
 
 /**
  * VFXScope
- * - Wraps children and applies VFX-JS to elements inside, with per-element aberration and adjustable constants.
+ * - Wraps children and applies VFX-JS to elements inside.
+ * - Now supports rounded corners via shader mask.
  *
- * Props (all optional; defaults pulled from DEFAULTS):
- * - selectors: CSS selector(s) to target (default: DEFAULTS.selectors)
- * - mode: "auto" | "fixed" | "scoped"
- * - strengthDesktop, strengthPhone: 0..1
- * - chromaDesktop, chromaPhone: pixels of RGB split per element
- * - jitterMajorPx, jitterMinorPx: pixel magnitudes for jumps/wobble
- * - jitterThreshMajor, jitterThreshMinor: 0..1 probabilities; higher => rarer
- * - sineFreq: horizontal sine frequency (6.0 is subtle/nice)
- * - scaleRefPx, scaleMin, scaleMax: responsive scaling controls
- * - className / style: passed to wrapper div
+ * Extra props:
+ * - borderRadiusPx: number (CSS px for rounded corners; default 16)
+ * - edgeFeatherPx:  number (soft edge width in px; default 1.5)
  */
 export default function VFXScope({
   children,
@@ -162,6 +193,10 @@ export default function VFXScope({
   scaleRefPx = DEFAULTS.scaleRefPx,
   scaleMin   = DEFAULTS.scaleMin,
   scaleMax   = DEFAULTS.scaleMax,
+
+  // NEW: rounded-corner mask controls
+  borderRadiusPx = DEFAULTS.borderRadiusPx,
+  edgeFeatherPx  = DEFAULTS.edgeFeatherPx,
 
   className,
   style,
@@ -299,6 +334,9 @@ export default function VFXScope({
               scaleRefPx,
               scaleMin,
               scaleMax,
+              // NEW: rounded mask controls
+              borderRadiusPx,
+              edgeFeatherPx,
             },
             zIndex: z ? parseInt(z, 10) : 0,
           });
@@ -347,17 +385,23 @@ export default function VFXScope({
     strengthDesktop, strengthPhone,
     chromaDesktop, chromaPhone,
     jitterMajorPx, jitterMinorPx, jitterThreshMajor, jitterThreshMinor,
-    sineFreq, scaleRefPx, scaleMin, scaleMax
+    sineFreq, scaleRefPx, scaleMin, scaleMax,
+    borderRadiusPx, edgeFeatherPx,
   ]);
 
-
   const needsScopedStyling = mode === "scoped" || mode === "auto";
+  const roundedStyle =
+    borderRadiusPx > 0 && needsScopedStyling
+      ? { borderRadius: borderRadiusPx, overflow: "hidden" }
+      : null;
+
   return (
     <div
       ref={rootRef}
       className={className}
       style={{
         ...(needsScopedStyling ? { position: "relative", isolation: "isolate" } : null),
+        ...roundedStyle, // helps clip the canvas in scoped mode; shader still handles both modes
         ...style,
       }}
     >

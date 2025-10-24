@@ -9,10 +9,12 @@ import VFXScope from "../../components/VFXScope/VFXScope.jsx"
 export const About = () => {
   return (
     <VFXScope
-      selectors="img,h1,h2,p"
+      selectors="img,h1,h2"
       strengthDesktop={0.30}
       strengthPhone={0.15}
-      mode="auto"
+      mode="auto"              // or "scoped"
+      borderRadiusPx={24}      // your corner radius in CSS pixels
+      edgeFeatherPx={1.5}      // soften the edge a touch
       className="about"
     >
       <section>

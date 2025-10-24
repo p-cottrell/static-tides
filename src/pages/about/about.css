@@ -18,7 +18,6 @@
 
 .about p {
   max-width: 65ch;
-  margin: 0;
 }
 
 .about img {
@@ -59,6 +58,9 @@
 /* two columns on larger screens*/
 @media (min-width: 900px) {
   .col { grid-template-columns: 1fr 1fr; }
+  .about p {
+    margin-left: 15px;
+  }
 }
 
 .last {
