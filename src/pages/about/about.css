@@ -7,6 +7,7 @@
 
 .about h1 { 
   margin-top: calc(var(--header-h) + 20px);
+  
 }
 
 .about section {
@@ -31,6 +32,7 @@
   margin-block-end: clamp(8px, 1.6vw, 24px);
   font-size: 40px;
   text-wrap: nowrap;
+  text-shadow: 1px 1px 1px rgb(255,0,0), -1px -1px 0px rgb(0,255,0);
 }
 
 @media (max-width: 900px) {
@@ -71,7 +73,7 @@
 }
 
 .last h2 {
-  text-shadow: 1px 1px 2px #000, -1px -1px 2px #cc83d4;
+  text-shadow: 3px 3px 2px #000, -3px -3px 2px #cc83d4, 1px 1px 1px red, -1px -1px 1px green;
 }
 
  /* make both elements occupy same cell */

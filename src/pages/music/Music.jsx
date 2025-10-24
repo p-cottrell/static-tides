@@ -21,7 +21,11 @@ export const Music = () => {
             src={albumArt}
             alt="Burning Bright EP cover art"
             className="music-art"
-            loading="lazy"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            width={2286}
+            height={2286}
           />
           <figcaption className="music-credits">
             <ul className="music-credits-list">

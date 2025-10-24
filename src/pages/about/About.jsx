@@ -4,6 +4,7 @@ import "./About.css";
 import last from "../../img/last.png";
 import me from "../../img/me.jpeg";
 import guitar from "../../img/guitar.jpg";
+import cover from "../../img/cover.jpg";
 import VFXScope from "../../components/VFXScope/VFXScope.jsx"
 
 export const About = () => {
@@ -12,9 +13,8 @@ export const About = () => {
       selectors="img,h1,h2"
       strengthDesktop={0.30}
       strengthPhone={0.15}
-      mode="auto"              // or "scoped"
-      borderRadiusPx={24}      // your corner radius in CSS pixels
-      edgeFeatherPx={1.5}      // soften the edge a touch
+      mode="auto"
+      borderRadiusPx={24}
       className="about"
     >
       <section>
@@ -22,7 +22,11 @@ export const About = () => {
           <img
             src="https://picsum.photos/id/737/800/600"
             alt="Static Tides"
-            loading="lazy"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            width={800}
+            height={600}
           />
         <p>Static Tides is an attmept to create contemporary music using equipment from the past - machines that hum, click, and drift slightly out of tune. Their imperfections breathing life into modern soundscapes. Each synth hiss and tape flutter, an echo from an ealier time. This is my dialogue with the past - a conversation between human hands and circuitry born before I was.</p>
       </section>
@@ -46,8 +50,13 @@ export const About = () => {
       </section>
 
       <section className="last">
-          <img src="https://picsum.photos/id/972/800/600"/>  
-          <h2 data-z="1">burning bright</h2>
+          <img
+            src={cover}
+            alt="Last"
+            loading="lazy"
+            decoding="async"
+            />
+          <h2 data-z="1">burning bright.</h2>
       </section>
     </VFXScope>
   );
