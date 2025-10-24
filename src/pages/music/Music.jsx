@@ -19,7 +19,6 @@ export const Music = () => {
         <figure className="music-figure">
           <img
             src={albumArt}
-            alt="Burning Bright EP cover art"
             className="music-art"
             loading="eager"
             fetchPriority="high"

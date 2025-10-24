@@ -21,7 +21,6 @@ export const About = () => {
         <h1>The need...</h1>
           <img
             src="https://picsum.photos/id/737/800/600"
-            alt="Static Tides"
             loading="eager"
             fetchPriority="high"
             decoding="async"

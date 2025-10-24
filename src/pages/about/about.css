@@ -38,9 +38,11 @@
 @media (max-width: 900px) {
   .about h1,
   .about h2 {
-       font-size: 25px;
-    }
+    font-size: 25px;
+    text-shadow: none;
+  }
 }
+
 
 .right { text-align: right; }
 .center { text-align: center; }
