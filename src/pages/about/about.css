@@ -27,7 +27,6 @@
   height: auto;
 }
 
-
 .about h1,
 .about h2 {
   margin-block-end: clamp(8px, 1.6vw, 24px);
@@ -67,6 +66,10 @@
   display: grid;
   place-items: center;
   margin-bottom: 0;
+}
+
+.last h2 {
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #cc83d4;
 }
 
  /* make both elements occupy same cell */

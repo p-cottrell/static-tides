@@ -1,7 +1,7 @@
 import React from "react";
 import "./Music.css";
 import VFXScope from "../../components/VFXScope/VFXScope.jsx"
-import albumArt from "../../img/burning-bright-alt.png";
+import albumArt from "../../img/burning-bright.png";
 
 export const Music = () => {
   return (

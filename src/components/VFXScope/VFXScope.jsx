@@ -1,6 +1,50 @@
 import React from "react";
 
-/** Your original per-element shader, unchanged */
+/* ============================================================
+   ADJUSTABLE CONSTANTS
+   ------------------------------------------------------------
+   Notes:
+   - Pixel-like values (e.g. jitter) are applied in UV space by
+     dividing by resolution.x so they stay resolution-independent.
+   - Thresholds are probabilities between 0..1 (closer to 1 = rarer).
+============================================================ */
+const DEFAULTS = {
+  // Intensity scaling
+  strengthDesktop: 0.40,
+  strengthPhone:   0.30,
+
+  // Chromatic aberration split (in pixels)
+  chromaDesktop:   0.8,
+  chromaPhone:     0.5,
+
+  // Major “glitch” step: max horizontal jump (in *pixels* before scaling)
+  jitterMajorPx:   0.015 * 1920,
+  // Minor sine wobble amplitude (in *pixels* before scaling)
+  jitterMinorPx:   0.008 * 1920,
+
+  // How often glitches happen (0..1). Higher = rarer.
+  jitterThreshMajor: 0.97,  // occasional
+  jitterThreshMinor: 0.985, // rarer than sine wobble
+
+  // Sine wobble horizontal frequency
+  sineFreq: 6.0,
+
+  // Responsive scaling clamp
+  scaleRefPx:   1080.0, // reference “design” size in px (used to scale intensity)
+  scaleMin:     0.60,   // don’t let scale drop below this on small screens
+  scaleMax:     1.00,   // don’t exceed this on big screens
+
+  // Selector list to target
+  selectors: "img,h1,h2,p",
+
+  // Layout mode
+  mode: "auto", // "auto" | "fixed" | "scoped"
+};
+
+/* ============================================================
+   Per-element shader WITH chromatic aberration + adjustable knobs
+   All tunables come through uniforms so you can change them live.
+============================================================ */
 const ELEM_SHADER = `
 precision highp float;
 uniform sampler2D src;
@@ -8,11 +52,28 @@ uniform vec2 offset;
 uniform vec2 resolution;
 uniform float time;
 uniform float id;
-uniform float strength;
+
+// intensity & aberration
+uniform float strength;      // 0..1
+uniform float chromaPx;      // split in pixels
+
+// jitter controls (pixels converted to UV inside)
+uniform float jitterMajorPx; // major jump magnitude in pixels
+uniform float jitterMinorPx; // minor sine wobble magnitude in pixels
+uniform float jitterThreshMajor; // 0..1, higher => rarer
+uniform float jitterThreshMinor; // 0..1, higher => rarer
+uniform float sineFreq;          // horizontal sine frequency
+
+// responsive scaling
+uniform float scaleRefPx;    // reference px (e.g. 1080)
+uniform float scaleMin;      // min multiplier
+uniform float scaleMax;      // max multiplier
+
 out vec4 outColor;
 
 vec4 readTex(vec2 uv) {
   vec4 c = texture(src, uv);
+  // soft edge fade (not a blur)
   c.a *= smoothstep(.5, .499, abs(uv.x - .5)) * smoothstep(.5, .499, abs(uv.y - .5));
   return c;
 }
@@ -21,47 +82,87 @@ float rand(vec2 p){ return fract(sin(dot(p, vec2(829.,483.))) * 394.); }
 void main() {
   vec2 uv = (gl_FragCoord.xy - offset) / resolution;
 
-  // responsive intensity
+  /* ---------- responsive intensity scaling ---------- */
   float minSide = min(resolution.x, resolution.y);
-  float scale   = clamp(minSide / 1080.0, 0.6, 1.0);
+  float scale   = clamp(minSide / scaleRefPx, scaleMin, scaleMax);
   float s = strength * scale;
 
-  // rare, tiny horizontal micro-shifts (NO BLUR)
+  /* ---------- random triggers (rare, tiny horizontal shifts) ---------- */
   float r  = rand(vec2(floor(time * 37.), id));
   float r2 = rand(vec2(floor(time * 29.), id + 10.));
 
-  if (r > mix(0.997, 0.90, s)) {
-    float f = (rand(vec2(floor(uv.y * 120.0), floor(time * 5.0) + id)) * 2. - 1.);
-    uv.x += f * (0.015 * s);
+  // convert pixel magnitudes -> UV; also scale by intensity
+  float majorUV = (jitterMajorPx / resolution.x) * s;
+  float minorUV = (jitterMinorPx / resolution.x) * s;
+
+  if (r > jitterThreshMajor) {
+    // random step at random scanlines
+    float f = (rand(vec2(floor(uv.y * 120.0), floor(time * 5.0) + id)) * 2.0 - 1.0);
+    uv.x += f * majorUV;
   }
-  if (r2 > mix(0.998, 0.92, s)) {
-    uv.x += sin(uv.y * 6. + time + id) * (0.008 * s);
+  if (r2 > jitterThreshMinor) {
+    // gentle sine-based wobble
+    uv.x += sin(uv.y * sineFreq + time + id) * (minorUV);
   }
 
-  outColor = readTex(uv);
+  /* ---------- Chromatic aberration (RGB split) ---------- */
+  float split = (chromaPx / resolution.x) * (0.75 + 0.25 * s); // small link to intensity
+
+  vec2 uvr = uv; uvr.x += split;   // red sample shifted +X
+  vec2 uvg = uv;                   // green center
+  vec2 uvb = uv; uvb.x -= split;   // blue shifted -X
+
+  vec4 cr = readTex(uvr);
+  vec4 cg = readTex(uvg);
+  vec4 cb = readTex(uvb);
+
+  // Combine channels (preserve alpha similarly to your original style)
+  outColor = vec4(cr.r, cg.g, cb.b, (cr.a + cg.a + cb.a) / 1.0);
 }
 `;
 
 /**
  * VFXScope
- * - Wraps children and applies VFX-JS to elements inside.
+ * - Wraps children and applies VFX-JS to elements inside, with per-element aberration and adjustable constants.
  *
- * Props:
- * - selectors: CSS selector(s) to target (default: "img,h1,h2,p")
- * - strengthDesktop: number (0–1), default 0.40
- * - strengthPhone:   number (0–1), default 0.30
+ * Props (all optional; defaults pulled from DEFAULTS):
+ * - selectors: CSS selector(s) to target (default: DEFAULTS.selectors)
  * - mode: "auto" | "fixed" | "scoped"
- *      auto   = fixed on desktop, scoped on phone (default)
- *      fixed  = fixed, between header/footer
- *      scoped = absolute inside wrapper only
+ * - strengthDesktop, strengthPhone: 0..1
+ * - chromaDesktop, chromaPhone: pixels of RGB split per element
+ * - jitterMajorPx, jitterMinorPx: pixel magnitudes for jumps/wobble
+ * - jitterThreshMajor, jitterThreshMinor: 0..1 probabilities; higher => rarer
+ * - sineFreq: horizontal sine frequency (6.0 is subtle/nice)
+ * - scaleRefPx, scaleMin, scaleMax: responsive scaling controls
  * - className / style: passed to wrapper div
  */
 export default function VFXScope({
   children,
-  selectors = "img,h1,h2,p",
-  strengthDesktop = 0.40,
-  strengthPhone = 0.30,
-  mode = "auto",
+
+  // selection + layout
+  selectors = DEFAULTS.selectors,
+  mode      = DEFAULTS.mode,
+
+  // intensity
+  strengthDesktop = DEFAULTS.strengthDesktop,
+  strengthPhone   = DEFAULTS.strengthPhone,
+
+  // aberration
+  chromaDesktop   = DEFAULTS.chromaDesktop,
+  chromaPhone     = DEFAULTS.chromaPhone,
+
+  // jitter controls
+  jitterMajorPx     = DEFAULTS.jitterMajorPx,
+  jitterMinorPx     = DEFAULTS.jitterMinorPx,
+  jitterThreshMajor = DEFAULTS.jitterThreshMajor,
+  jitterThreshMinor = DEFAULTS.jitterThreshMinor,
+  sineFreq          = DEFAULTS.sineFreq,
+
+  // responsive scaling
+  scaleRefPx = DEFAULTS.scaleRefPx,
+  scaleMin   = DEFAULTS.scaleMin,
+  scaleMax   = DEFAULTS.scaleMax,
+
   className,
   style,
 }) {
@@ -179,13 +280,26 @@ export default function VFXScope({
         if (layer && layer.tagName === "CANVAS") normalizeCanvas(layer);
 
         const strength = isPhone ? strengthPhone : strengthDesktop;
+        const chromaPx = isPhone ? chromaPhone : chromaDesktop;
 
         let i = 0;
         root.querySelectorAll(selectors).forEach((el) => {
           const z = el.getAttribute("data-z");
           vfx.add(el, {
             shader: ELEM_SHADER,
-            uniforms: { id: i++, strength },
+            uniforms: {
+              id: i++,
+              strength,
+              chromaPx,
+              jitterMajorPx,
+              jitterMinorPx,
+              jitterThreshMajor,
+              jitterThreshMinor,
+              sineFreq,
+              scaleRefPx,
+              scaleMin,
+              scaleMax,
+            },
             zIndex: z ? parseInt(z, 10) : 0,
           });
         });
@@ -228,7 +342,13 @@ export default function VFXScope({
       try { vfxRef.current?.destroy?.(); } catch {}
       vfxRef.current = null;
     };
-  }, [selectors, strengthDesktop, strengthPhone, mode]);
+  }, [
+    selectors, mode,
+    strengthDesktop, strengthPhone,
+    chromaDesktop, chromaPhone,
+    jitterMajorPx, jitterMinorPx, jitterThreshMajor, jitterThreshMinor,
+    sineFreq, scaleRefPx, scaleMin, scaleMax
+  ]);
 
 
   const needsScopedStyling = mode === "scoped" || mode === "auto";

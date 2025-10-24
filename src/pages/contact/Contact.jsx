@@ -1,6 +1,7 @@
 // Contact.jsx
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import VFXScope from "../../components/VFXScope/VFXScope.jsx"
 import "./Contact.css";
 
 export const Contact = () => {
@@ -80,7 +81,7 @@ export const Contact = () => {
               />
             </div>
           </div>
-
+          
           <button type="submit" className="btn-send" disabled={isSending}>
             {isSending ? "Sending…" : "Send Message"}
           </button>
