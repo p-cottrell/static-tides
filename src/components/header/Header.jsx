@@ -29,13 +29,13 @@ const Header = () => {
     <header className="header-container">
       <Link to="/" className="title-link">
         <h1 className="title">
-  S T{" "}
+   T I D E S &nbsp; O F &nbsp; S T{" "}
   <span className="tri-outline" aria-hidden="true">
     <svg viewBox="0 0 24 24">
       <polygon points="12,3 22,21 2,21" />
     </svg>
   </span>{" "}
-  T I C &nbsp; T I D E S
+  T I C
 </h1>
       </Link>
 

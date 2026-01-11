@@ -1,6 +1,12 @@
 Options -MultiViews
 RewriteEngine On
+
+# Exempt sitemap + robots so Google can fetch them
+RewriteRule ^sitemap\.xml$ - [L]
+RewriteRule ^robots\.txt$ - [L]
+
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
-RewriteRule . /index.html [L]
+
+RewriteRule . /index.html [L].htaccess copy

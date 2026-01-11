@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Wallpaper from "../components/wallpaper/Wallpaper";
+import BackgroundVideo from "../components/BackgroundVideo/BackgroundVideo";
 import '../styles/app.css';
 
 import useMediaQuery from "../hooks/useMediaQuery";
@@ -31,7 +32,7 @@ export default function App() {
     <>
     <Wallpaper
         numParticles={isPhone ? 10 : 20}
-        distance={200}
+        distance={0}
         speed={0.5}
         radius={1}
         lineWidth={0.6}
@@ -39,6 +40,7 @@ export default function App() {
         lineColor="#61dafb"
         backgroundColor="#000"
       />
+    {/*<BackgroundVideo />*/}
       <Header />
       <main className="page-container">
         <TransitionGroup component={null}>
