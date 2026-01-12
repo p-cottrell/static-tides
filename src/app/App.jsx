@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Wallpaper from "../components/wallpaper/Wallpaper";
-import BackgroundVideo from "../components/BackgroundVideo/BackgroundVideo";
 import '../styles/app.css';
 
 import useMediaQuery from "../hooks/useMediaQuery";
@@ -13,6 +12,7 @@ import { Home } from "../pages/home/Home";
 import { Music } from "../pages/music/Music";
 import { About } from "../pages/about/About";
 import { Contact } from "../pages/contact/Contact";
+import ScrollToTop from "../hooks/scrollToTop";
 
 
 export default function App() {
@@ -30,6 +30,7 @@ export default function App() {
 
   return (
     <>
+    <ScrollToTop />
     <Wallpaper
         numParticles={isPhone ? 10 : 20}
         distance={0}
@@ -40,7 +41,6 @@ export default function App() {
         lineColor="#61dafb"
         backgroundColor="#000"
       />
-    {/*<BackgroundVideo />*/}
       <Header />
       <main className="page-container">
         <TransitionGroup component={null}>

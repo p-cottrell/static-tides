@@ -1,6 +1,7 @@
 /* ---------- HEADER ---------- */
 .header-container {
   position: fixed;
+  top: 0;  
   left: 0;
   right: 0;
   display: flex;
@@ -182,6 +183,18 @@
   .menu-item {
     font-size: 2rem;
     left: 50px;
+  }
+}
+
+@media (max-width: 400px) {
+  .title {
+    font-size: 1.08em;
+  }
+}
+
+@media (max-width: 350px) {
+  .title {
+    font-size: .9em;
   }
 }
 

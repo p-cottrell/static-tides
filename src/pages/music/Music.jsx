@@ -8,7 +8,7 @@ export const Music = () => {
     <VFXScope
           selectors="h1"
           strengthDesktop={0.30}
-          strengthPhone={0.15}
+          strengthPhone={0.30}
           mode="auto"
         >
     <main className="music">

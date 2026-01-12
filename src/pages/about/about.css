@@ -1,14 +1,11 @@
 .about {
-  min-height: 100dvh;
+  min-height: 100%;
   overflow-x: hidden;
   position: relative;
   isolation: isolate;
 }
 
-.about h1 { 
-  margin-top: calc(var(--header-h) + 20px);
-  
-}
+
 
 .about section {
   margin-bottom: clamp(6vh, 10vh + 1vw, 28vh);
@@ -32,7 +29,6 @@
   margin-block-end: clamp(8px, 1.6vw, 24px);
   font-size: 40px;
   text-wrap: nowrap;
-  //text-shadow: 1px 1px 1px rgb(255,0,0), -1px -1px 0px rgb(0,255,0);
 }
 
 @media (max-width: 900px) {
@@ -75,7 +71,17 @@
 }
 
 .last h2 {
-  text-shadow: 3px 3px 2px #000, -3px -3px 2px #cc83d4, 1px 1px 1px red, -1px -1px 1px green;
+  text-shadow: 3px 3px 2px #000,
+               -3px -3px 2px #cc83d4;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .last h2 {
+    text-shadow: 1px 1px 0 #000;
+    filter:
+      drop-shadow(3px 3px 2px #000)
+      drop-shadow(-3px -3px 2px #cc83d4)
+  }
 }
 
  /* make both elements occupy same cell */
@@ -87,6 +93,10 @@
   .last{
     padding-bottom: calc(var(--footer-h) + 20px)
   }
+  .last h2 {
+  text-shadow: 1px 1px 2px #000,
+               -1px -1px 2px #cc83d4;
+}
 }
 
 /* tighter, more intentional columns on desktop */

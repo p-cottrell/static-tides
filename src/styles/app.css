@@ -4,7 +4,8 @@
   --clr-accent: #cc83d4;
   --clr-accent-alt: #61dafb;
   --ff-space_mono: "Space Mono", monospace;
-  --header-h: 98px;
+
+  --header-h: 65px;
   --footer-h: 65px;
 
   --fs-h1: 4.5rem;
@@ -13,8 +14,11 @@
   --fs-h4: 1.125rem;
   --fs-body: 1rem;
   --fs-small: 0.9rem;
-}
 
+  /* iOS safe areas (notch) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
 
 @media (max-width: 800px) {
   :root {
@@ -34,25 +38,25 @@
   pointer-events: none;
 }
 
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-html, body {
-  height: -webkit-fill-available;
+html,
+body {
   height: 100%;
   margin: 0;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
 }
 
+/* IMPORTANT:
+   Don’t set global smooth scrolling. It interferes with route scroll resets.
+   If you want smooth anchor scrolling later, do it selectively on anchor clicks. */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   scrollbar-gutter: stable both-edges;
-
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -63,8 +67,10 @@ body {
   background-color: var(--clr-dark);
   font-family: var(--ff-space_mono);
   font-size: var(--fs-body);
-}
 
+  /* stop “scroll chaining” feeling on mobile */
+  overscroll-behavior: contain;
+}
 
 h1 {
   font-size: var(--fs-h1);
@@ -85,21 +91,43 @@ p {
   word-spacing: 1.4px;
 }
 
+/* ===============================
+   MAIN CONTENT WINDOW (SCROLLER)
+   =============================== */
 
 .page-container {
-  min-height: calc(100svh - var(--header-h) - var(--footer-h));
+  /* This is the usable “viewport” between fixed header and footer */
+  height: calc(100dvh - var(--header-h) - var(--footer-h) - var(--safe-top) - var(--safe-bottom));
+  height: calc(100svh - var(--header-h) - var(--footer-h) - var(--safe-top) - var(--safe-bottom));
+
+  /* Offset so content starts below fixed header/footer */
+  margin-top: calc(var(--header-h) + var(--safe-top));
+  margin-bottom: calc(var(--footer-h) + var(--safe-bottom));
+
+  /* Make THIS the scroller */
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  position: relative;
   z-index: 1;
 }
 
-/* TRANSITION CSS*/
+/* Optional: helps prevent horizontal jiggle from transforms */
+.route-wrapper {
+  min-height: 100%;
+}
 
-
+/* ===============================
+   TRANSITIONS
+   =============================== */
 
 .route-enter {
   opacity: 0;
   transform: translateY(15px) scale(0.98);
   filter: blur(6px);
 }
+
 .route-enter-active {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -110,12 +138,12 @@ p {
     filter var(--route-ms, 520ms) ease;
 }
 
-
 .route-exit {
   opacity: 1;
   transform: translateY(0) scale(1);
   filter: blur(0);
 }
+
 .route-exit-active {
   opacity: 0;
   transform: translateY(-15px) scale(0.99);
@@ -142,7 +170,6 @@ p {
   }
 }
 
-/* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .route-enter,
   .route-exit,

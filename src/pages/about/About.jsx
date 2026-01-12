@@ -12,7 +12,7 @@ export const About = () => {
     <VFXScope
       selectors="img,h1,h2"
       strengthDesktop={0.30}
-      strengthPhone={0.15}
+      strengthPhone={0.30}
       mode="auto"
       borderRadiusPx={24}
       className="about"
@@ -27,7 +27,7 @@ export const About = () => {
             width={800}
             height={600}
           />
-        <p>Static Tides is an attmept to create contemporary music using equipment from the past - machines that hum, click, and drift slightly out of tune. Their imperfections breathing life into modern soundscapes. Each synth hiss and tape flutter, an echo from an ealier time. This is my dialogue with the past - a conversation between human hands and circuitry born before I was.</p>
+        <p>Tides of Static is an attempt to create contemporary music using equipment from the past - machines that hum, click, and drift slightly out of tune. Their imperfections breathing life into modern soundscapes. Each synth hiss and tape flutter, an echo from an earlier time. This is my dialogue with the past - a conversation between human hands and circuitry born before I was.</p>
       </section>
 
       <section>
@@ -36,14 +36,14 @@ export const About = () => {
         </div>
         <div className="col">
           <img src={me} alt="soft light across folded textures" loading="lazy" />
-          <p>And if the soul remains, so too does its intent — not always clear, not always benevolent. What was the writer thinking? Or worse — what was it trying not to think? Language is a veil, but veils are thin when backlit by desire, or fear, or guilt. Read carefully. Something watches back when you stare too long into a sentence.</p>
+          <p>I’m a lifelong musician based in Perth, Western Australia, having moved through a wide range of genres over the years. Tides of Static is where those influences meet my interest in electronic sound, atmosphere, and texture.</p>
         </div>
       </section>
 
       <section>
         <h2 className="display">forever...</h2>
         <div className="col reverse">
-          <p>Somewhere between the folds, something breathes. Not a presence, but the memory of having been watched. Syntax curls back on itself, a serpent swallowing not its tail, but its own shadow. Read again. You missed it the first time. You always do.</p>
+          <p>The project is influenced by science fiction, film sound, and the world around me, as well as a long-standing appreciation for the character of older equipment. Those influences inform the mood and texture of the music, giving it a sense of space, tension, and familiarity.</p>
           <img src={guitar} alt="contrasting planes with sharp shadow edge" loading="lazy" />
         </div>
       </section>
@@ -55,7 +55,7 @@ export const About = () => {
             loading="lazy"
             decoding="async"
             />
-          <h2 data-z="1">burning bright.</h2>
+          <h2 data-text="burning bright." data-z="1">burning bright.</h2>
       </section>
     </VFXScope>
   );

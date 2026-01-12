@@ -3,14 +3,16 @@
 /* Scope everything under .planets to avoid clashes */
 .planets .hero {
   text-align: center;
-  background-repeat: no-repeat;
-  background-size: 100% 365px;
-  background-position: center;
   width: 100%;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* Fit inside available space */
+  height: calc(100dvh - var(--header-h) - var(--footer-h));
+  height: calc(100svh - var(--header-h) - var(--footer-h));
+
+  overflow: hidden;
 }
 
 .planets .landing-child {
