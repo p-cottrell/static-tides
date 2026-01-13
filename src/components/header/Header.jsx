@@ -65,6 +65,9 @@ const Header = () => {
               <Link onClick={handleToggle} to="/music">music</Link>
             </li>
             <li className="menu-item">
+              <Link onClick={handleToggle} to="/links">links</Link>
+            </li>
+            <li className="menu-item">
               <Link onClick={handleToggle} to="/about">about</Link>
             </li>
             <li className="menu-item">

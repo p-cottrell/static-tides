@@ -11,6 +11,7 @@ import Footer from "../components/footer/Footer";
 import Header from "../components/header/Header";
 import { Home } from "../pages/home/Home";
 import { Music } from "../pages/music/Music";
+import { Links } from "../pages/links/Links";
 import { About } from "../pages/about/About";
 import { Contact } from "../pages/contact/Contact";
 import ScrollToTop from "../hooks/scrollToTop";
@@ -106,6 +107,7 @@ export default function App() {
               <Routes location={location}>
                 <Route path="/" element={<Home />} />
                 <Route path="/music" element={<Music />} />
+                <Route path="/links" element={<Links />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<Home />} />

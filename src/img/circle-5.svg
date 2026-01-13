@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 1395 1395" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:1.5;">
-    <g transform="matrix(1,0,0,1,-552.958,-552.958)">
-        <circle cx="1250" cy="1250" r="670" style="fill:none;stroke:rgb(255,97,93);stroke-width:30px;stroke-dasharray:900,450,0,0;"/>
+<svg
+   width="100%"
+   height="100%"
+   viewBox="0 0 1395 1395"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:1.5;"
+   id="svg1"
+   sodipodi:docname="circle-5.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs1" /><sodipodi:namedview
+   id="namedview1"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="0.84946237"
+   inkscape:cx="698.08861"
+   inkscape:cy="509.14557"
+   inkscape:window-width="1283"
+   inkscape:window-height="1211"
+   inkscape:window-x="1696"
+   inkscape:window-y="338"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="g1" />
+    <g
+   transform="matrix(1,0,0,1,-552.958,-552.958)"
+   id="g1">
+        <circle
+   cx="1250"
+   cy="1250"
+   r="670"
+   style="fill:none;stroke:#d780e0;stroke-width:30px;stroke-dasharray:900, 450, 0, 0;fill-opacity:1;stroke-opacity:1"
+   id="circle1" />
     </g>
 </svg>

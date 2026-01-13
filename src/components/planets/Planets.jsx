@@ -142,7 +142,7 @@ const Planets = () => {
               aria-haspopup="dialog"
               aria-expanded={isPopUp3}
             >
-              <Link to="/contact">
+              <Link to="/links">
                 <div className="planet-core" />
               </Link>
             </animated.li>
@@ -171,7 +171,7 @@ const Planets = () => {
           >
             <div className="pop-up-opacity">
               <div className="pop-up_header-container">
-                <h3 className="pop-up_h3">socials</h3>
+                <h3 className="pop-up_h3">links</h3>
               </div>
             </div>
           </animated.div>
