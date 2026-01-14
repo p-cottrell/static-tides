@@ -3,11 +3,11 @@ import "./Home.css";
 import Planets from "../../components/planets/Planets";
 import { Helmet } from "react-helmet";
 
+
 export const Home = () => {
   const siteUrl = "https://tidesofstatic.com";
   const pageUrl = `${siteUrl}/`;
 
-  // Home-specific
   const title = "Tides of Static";
   const description =
     "Tides of Static is an electronic music project. Listen to the debut studio EP “Burning Bright”, explore releases, and follow new music updates.";
@@ -59,7 +59,7 @@ export const Home = () => {
       </Helmet>
 
       <p className="home-announcement">
-        Announcing my first studio EP ‘Burning Bright’{" "}
+        Announcing my first studio EP <strong>‘Burning Bright’</strong>{" "}
         <a
           className="ep-link"
           href="https://tidesofstatic.bandcamp.com/"

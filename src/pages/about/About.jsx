@@ -2,6 +2,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import "./About.css";
+import first from "../../img/first.webp";
+import tv from "../../img/tv.webp";
 import me from "../../img/me.jpeg";
 import guitar from "../../img/guitar.jpg";
 import cover from "../../img/cover.jpg";
@@ -41,7 +43,7 @@ export const About = () => {
       <section>
         <h1>The need...</h1>
         <img
-          src="https://picsum.photos/id/737/800/600"
+          src= {tv}
           alt="Abstract monochrome textures with soft light and grain"
           loading="eager"
           fetchPriority="high"

@@ -25,7 +25,7 @@ export const Contact = () => {
   const [status, setStatus] = useState(null); // "success" | "error" | null
   const [isSending, setIsSending] = useState(false);
 
-  // Normalise message content + prevent big blank gaps
+  // Normalise message content
   const normalizeMessage = (text) =>
     text
       .replace(/\r\n/g, "\n")
@@ -36,46 +36,60 @@ export const Contact = () => {
   const sendEmail = async (e) => {
     e.preventDefault();
 
-    // Guard against double send
     if (isSending) return;
 
     setStatus(null);
     setIsSending(true);
 
-    // Time-based trap
-    const elapsed = Date.now() - startedAtRef.current;
-    if (elapsed < MIN_SUBMIT_MS) {
-      // Pretend success to avoid teaching bots
-      setStatus("success");
+    const f = form.current;
+    if (!f) {
+      setStatus("error");
       setIsSending(false);
-      form.current?.reset();
       return;
     }
 
-    // Honeypot check
-    const honeyEl = form.current?.querySelector('input[name="company"]');
-    if (honeyEl && honeyEl.value.trim().length > 0) {
-      // Pretend success to avoid teaching bots
-      setStatus("success");
-      setIsSending(false);
-      form.current?.reset();
-      return;
-    }
+    // client validation
+    const nameEl = f.querySelector('input[name="user_name"]');
+    const emailEl = f.querySelector('input[name="user_email"]');
+    const messageEl = f.querySelector('textarea[name="message"]');
 
-    // Normalise textarea content + cap length before sending
-    const messageEl = form.current?.querySelector('textarea[name="message"]');
+    if (nameEl) nameEl.value = nameEl.value.trim();
+    if (emailEl) emailEl.value = emailEl.value.trim();
     if (messageEl) {
       messageEl.value = normalizeMessage(messageEl.value).slice(0, MAX_MESSAGE_CHARS);
     }
 
+    // Use native HTML validation rules
+    if (!f.checkValidity()) {
+      f.reportValidity();
+      setIsSending(false);
+      return;
+    }
+
+    // Bot traps
+    const elapsed = Date.now() - startedAtRef.current;
+    const honeyEl = f.querySelector('input[name="company"]');
+
+    const isBotLikely =
+      elapsed < MIN_SUBMIT_MS || (honeyEl && honeyEl.value.trim().length > 0);
+
+    if (isBotLikely) {
+      // Pretend success
+      setStatus("success");
+      setIsSending(false);
+      f.reset();
+      startedAtRef.current = Date.now();
+      return;
+    }
+
+    // send
     try {
-      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, {
+      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, f, {
         publicKey: PUBLIC_KEY,
       });
 
       setStatus("success");
-      form.current?.reset();
-      // reset timer after successful submission
+      f.reset();
       startedAtRef.current = Date.now();
     } catch (error) {
       console.error("EmailJS failed:", error?.status, error?.text || error);
@@ -109,7 +123,7 @@ export const Contact = () => {
             back to you soon.
           </p>
 
-          <form ref={form} onSubmit={sendEmail} className="contact-form" noValidate>
+          <form ref={form} onSubmit={sendEmail} className="contact-form">
             <div
               style={{
                 position: "absolute",

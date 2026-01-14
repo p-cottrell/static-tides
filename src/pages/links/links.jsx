@@ -5,6 +5,7 @@ import "./Links.css";
 import BackgroundVideo from "../../components/BackgroundVideo/BackgroundVideo.jsx";
 import { FaBandcamp, FaSpotify, FaInstagram, FaYoutube} from "react-icons/fa";
 import { SiApplemusic } from "react-icons/si";
+import { FaSquareLetterboxd } from "react-icons/fa6";
 
 export const Links = () => {
   const siteUrl = "https://tidesofstatic.com";
@@ -110,12 +111,21 @@ export const Links = () => {
 
               <a
                 className="btn-link"
-                href="..."
+                href="https://www.youtube.com/@tidesofstatic"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube (opens in a new tab)"
               >
                 <FaYoutube/> &nbsp; YouTube
+              </a>
+              <a
+                className="btn-link"
+                href="https://letterboxd.com/PaulCottrell/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Letterboxd (opens in a new tab)"
+              >
+                <FaSquareLetterboxd/> &nbsp; Letterboxd
               </a>
             </div>
           </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import "./Music.css";
 import VFXScope from "../../components/VFXScope/VFXScope.jsx";
-import albumArt from "../../img/burning-bright.png";
+import albumArt from "../../img/burning-bright-1120.webp";
 
 export const Music = () => {
   const siteUrl = "https://tidesofstatic.com";

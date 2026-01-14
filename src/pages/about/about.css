@@ -70,6 +70,10 @@
   margin-bottom: 0;
 }
 
+.last img {
+  filter: brightness(1%);
+}
+
 .last h2 {
   text-shadow: 3px 3px 2px #000,
                -3px -3px 2px #cc83d4;

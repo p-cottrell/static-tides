@@ -20,6 +20,12 @@
   </url>
 
   <url>
+  <loc>https://tidesofstatic.com/links</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://www.tidesofstatic.com/contact</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
