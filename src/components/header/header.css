@@ -186,6 +186,17 @@
   }
 }
 
+/*For Laptops*/
+@media (max-height: 900px) {
+  .menu-item-wrapper { gap: 2rem; }
+  .menu-item a { padding: .35rem .6rem; }
+  .menu-item {
+    font-size: 2.8rem;
+    left: 50px;
+  }
+}
+
+
 @media (max-width: 400px) {
   .title {
     font-size: 1.08em;

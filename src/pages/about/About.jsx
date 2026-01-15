@@ -31,7 +31,6 @@ export const About = () => {
         <meta name="description" content={description} />
         <link rel="canonical" href={pageUrl} />
 
-        {/* Override per-page URL + copy (image inherited from App.jsx) */}
         <meta property="og:url" content={pageUrl} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
@@ -44,7 +43,7 @@ export const About = () => {
         <h1>The need...</h1>
         <img
           src= {tv}
-          alt="Abstract monochrome textures with soft light and grain"
+          alt="TV in the street"
           loading="eager"
           fetchPriority="high"
           decoding="async"
@@ -66,7 +65,7 @@ export const About = () => {
           <h2 className="display">to be...</h2>
         </div>
         <div className="col">
-          <img src={me} alt="Portrait in soft light" loading="lazy" />
+          <img src={me} alt="Portrait of me" loading="lazy" />
           <p>
             I’m a lifelong musician based in Perth, Western Australia, having
             moved through a wide range of genres over the years. Tides of Static
@@ -88,7 +87,7 @@ export const About = () => {
           </p>
           <img
             src={guitar}
-            alt="Guitar in shadow with strong contrast"
+            alt="Portrait of me"
             loading="lazy"
           />
         </div>

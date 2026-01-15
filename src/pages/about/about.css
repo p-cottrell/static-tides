@@ -1,126 +1,170 @@
-.about {
-  min-height: 100%;
-  overflow-x: hidden;
-  position: relative;
-  isolation: isolate;
-}
+/* =========================
+   About Page Base
+   ========================= */
 
-
-
-.about section {
-  margin-bottom: clamp(6vh, 10vh + 1vw, 28vh);
-  padding-inline: clamp(16px, 6vw, 10%);
-  max-width: min(1100px, 100%);
-  margin-inline: auto;
-}
-
-.about p {
-  max-width: 65ch;
-}
-
-.about img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.about h1,
-.about h2 {
-  margin-block-end: clamp(8px, 1.6vw, 24px);
-  font-size: 40px;
-  text-wrap: nowrap;
-}
-
-@media (max-width: 900px) {
+   .about {
+    position: relative;
+    isolation: isolate;
+    min-height: 100%;
+    overflow-x: clip;
+  }
+  
+  /* =========================
+     Sections / Layout
+     ========================= */
+  
+  .about section {
+    margin-inline: auto;
+    max-width: 1100px;
+    padding-inline: clamp(16px, 6vw, 10%);
+    margin-block-end: clamp(6vh, 10vh + 1vw, 28vh);
+  }
+  
+  /* Two-column grid wrapper */
+  .col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(12px, 2.5vw, 28px);
+    align-items: start;
+  }
+  
+  /* Utility alignment */
+  .right {
+    text-align: right;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  /* =========================
+     Typography
+     ========================= */
+  
+  .about p {
+    max-width: 65ch;
+  }
+  
   .about h1,
   .about h2 {
-    font-size: 25px;
-    text-shadow: none;
+    margin-block-end: clamp(8px, 1.6vw, 24px);
+    font-size: clamp(25px, 2.6vw, 40px);
+    text-wrap: balance;
   }
-}
-
-
-.right { text-align: right; }
-.center { text-align: center; }
-
-
-.col {
-  display: grid;
-  gap: clamp(12px, 2.5vw, 28px);
-  align-items: start;
-  grid-template-columns: 1fr;
-}
-
-/* flip the sides on smaller screens reordering children */
-@media (max-width: 900px) {
-  .col.reverse > *:first-child { order: 2; }
-}
-/* two columns on larger screens*/
-@media (min-width: 900px) {
-  .col { grid-template-columns: 1fr 1fr; }
-  .about p {
-    margin-left: 15px;
-  }
-}
-
-.last {
-  position: relative;
-  display: grid;
-  place-items: center;
-  margin-bottom: 0;
-}
-
-.last img {
-  filter: brightness(1%);
-}
-
-.last h2 {
-  text-shadow: 3px 3px 2px #000,
-               -3px -3px 2px #cc83d4;
-}
-
-@supports (-webkit-touch-callout: none) {
-  .last h2 {
-    text-shadow: 1px 1px 0 #000;
-    filter:
-      drop-shadow(3px 3px 2px #000)
-      drop-shadow(-3px -3px 2px #cc83d4)
-  }
-}
-
- /* make both elements occupy same cell */
-.last > * {
-  grid-area: 1 / 1;
-}
-
-@media (max-width: 700px) {
-  .last{
-    padding-bottom: calc(var(--footer-h) + 20px)
-  }
-  .last h2 {
-  text-shadow: 1px 1px 2px #000,
-               -1px -1px 2px #cc83d4;
-}
-}
-
-/* tighter, more intentional columns on desktop */
-@media (min-width: 900px) {
-  .col {
-    gap: clamp(20px, 3vw, 40px);
-  }
-
-  .center + .col {
-    margin-top: clamp(8px, 1.2vw, 16px);
-  }
-
-  .col p {
-    max-width: 58ch;
-  }
-
-  .col img {
-    align-self: start;
-    justify-self: stretch;
+  
+  /* =========================
+     Media (Images)
+     ========================= */
+  
+  .about img {
+    display: block;
     width: 100%;
     height: auto;
   }
-}
+  
+  /* =========================
+     Responsive: <= 900px
+     ========================= */
+  
+  @media (max-width: 900px) {
+    /*reverse order on mobile*/
+    .col.reverse > *:first-child {
+      order: 2;
+    }
+    .col.reverse > *:nth-child(2) {
+      order: 1;
+    }
+  }
+  
+  /* =========================
+     Responsive: >= 900px
+     ========================= */
+  
+  @media (min-width: 900px) {
+    .col {
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(20px, 3vw, 40px);
+    }
+  
+    .col p {
+      max-width: 58ch;
+    }
+  
+    .col img {
+      align-self: start;
+      justify-self: stretch;
+      width: 100%;
+      height: auto;
+    }
+  
+    .center + .col {
+      margin-top: clamp(8px, 1.2vw, 16px);
+    }
+  }
+  
+  /* =========================
+     Short Viewport Heights
+     ========================= */
+  
+  @media (max-height: 900px) {
+    .about section {
+      max-width: 800px;
+    }
+  
+    .about img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  
+
+  }
+  
+  /* =========================
+     Last Section (Overlay Title + Image)
+     ========================= */
+  
+  .last {
+    position: relative;
+    display: grid;
+    place-items: center;
+    margin-block-end: 0;
+  }
+  
+  /* Make both elements occupy the same cell */
+  .last > * {
+    grid-area: 1 / 1;
+  }
+  
+  .last h2 {
+    text-shadow:
+      3px 3px 2px #000,
+      -3px -3px 2px #cc83d4;
+  }
+  
+  /* iOS/Safari fallback */
+  @supports (-webkit-touch-callout: none) {
+    .last h2 {
+      text-shadow: 1px 1px 0 #000;
+      filter:
+        drop-shadow(3px 3px 2px #000)
+        drop-shadow(-3px -3px 2px #cc83d4);
+    }
+  }
+  
+  /* =========================
+     Small Screens: <= 700px
+     ========================= */
+  
+  @media (max-width: 700px) {
+    .last {
+      padding-bottom: calc(var(--footer-h) + 20px);
+    }
+  
+    .last h2 {
+      text-shadow:
+        1px 1px 2px #000,
+        -1px -1px 2px #cc83d4;
+    }
+  }
+  

@@ -194,7 +194,6 @@ export default function VFXScope({
   scaleMin   = DEFAULTS.scaleMin,
   scaleMax   = DEFAULTS.scaleMax,
 
-  // NEW: rounded-corner mask controls
   borderRadiusPx = DEFAULTS.borderRadiusPx,
   edgeFeatherPx  = DEFAULTS.edgeFeatherPx,
 
