@@ -59,3 +59,32 @@
   font-size: 0.75rem;
   opacity: 0.95;
 }
+
+.music-credits-list a {
+  position: relative;
+  color: var(--clr-light);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.music-credits-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.9);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.music-credits-list a:hover {
+  color: var(--clr-accent-alt);
+}
+
+.music-credits-list a:hover::after {
+  opacity: 0.6;
+  transform: scaleX(1);
+}

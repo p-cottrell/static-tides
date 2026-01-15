@@ -63,9 +63,10 @@ export const Music = () => {
             />
             <figcaption className="music-credits">
               <ul className="music-credits-list">
-                <li>Cover photography - Ellie Cottrell</li>
                 <li>Written & produced - Paul Cottrell</li>
-                <li>Mastering - Al &quot;Alien&quot; Smith</li>
+                <li>Mastering - <a href="https://www.thrash-wolf.com/" target="blank">Al &quot;Dr Alien&quot; Smith</a></li> 
+                <li>Cover photography - <a href="https://www.elliecottrellwrites.com/" target="blank"> Ellie Cottrell</a></li>
+                <li>Logo - <a href="https://www.thrash-wolf.com/" target="blank">ThrashWolf</a></li>
                 <li>Copyright - Paul Cottrell</li>
               </ul>
             </figcaption>
