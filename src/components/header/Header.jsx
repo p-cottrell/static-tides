@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Pivot as Hamburger } from "hamburger-react";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import logo from "../../img/text_logo_fff.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,15 +29,7 @@ const Header = () => {
   return (
     <header className="header-container">
       <Link to="/" className="title-link">
-        <h1 className="title">
-   T I D E S &nbsp; O F &nbsp; S T{" "}
-  <span className="tri-outline" aria-hidden="true">
-    <svg viewBox="0 0 24 24">
-      <polygon points="12,3 22,21 2,21" />
-    </svg>
-  </span>{" "}
-  T I C
-</h1>
+        <img src={logo} alt="Tides of Static logo" className="title" />
       </Link>
 
       <div className="hamburger-button">
@@ -49,13 +42,6 @@ const Header = () => {
 
       {isVisible && (
         <div className={`menu ${isOpen ? "open" : "closing"}`}>
-          <div className="hamburger-button">
-            <Hamburger
-              size={isPhone ? 18 : 24}
-              toggled={isOpen}
-              toggle={handleToggle}
-            />
-          </div>
 
           <nav className="menu-item-wrapper">
             <li className="menu-item">

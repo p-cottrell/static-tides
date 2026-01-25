@@ -7,6 +7,7 @@
     isolation: isolate;
     min-height: 100%;
     overflow-x: clip;
+    padding-top: 50px;
   }
   
   /* =========================
@@ -155,7 +156,7 @@
   /* =========================
      Small Screens: <= 700px
      ========================= */
-  
+
   @media (max-width: 700px) {
     .last {
       padding-bottom: calc(var(--footer-h) + 20px);
@@ -166,5 +167,7 @@
         1px 1px 2px #000,
         -1px -1px 2px #cc83d4;
     }
+    .about {
+      padding-top: none;
+    }
   }
-  

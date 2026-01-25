@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import "./Music.css";
 import VFXScope from "../../components/VFXScope/VFXScope.jsx";
-import albumArt from "../../img/burning-bright-1120.webp";
+import albumArt from "../../img/burning-bright-1080.webp";
 
 export const Music = () => {
   const siteUrl = "https://tidesofstatic.com";
@@ -64,8 +64,7 @@ export const Music = () => {
             <figcaption className="music-credits">
               <ul className="music-credits-list">
                 <li>Written & produced - Paul Cottrell</li>
-                <li>Mastering - <a href="https://www.thrash-wolf.com/" target="blank">Al &quot;Dr Alien&quot; Smith</a></li> 
-                <li>Cover photography - <a href="https://www.elliecottrellwrites.com/" target="blank"> Ellie Cottrell</a></li>
+                <li>Mastering - <a href="https://www.thrash-wolf.com/" target="blank">Al &quot;Dr Alien&quot; Smith</a></li>
                 <li>Logo - <a href="https://www.thrash-wolf.com/" target="blank">ThrashWolf</a></li>
                 <li>Copyright - Paul Cottrell</li>
               </ul>
