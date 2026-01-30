@@ -44,8 +44,7 @@
   box-sizing: border-box;
 }
 
-html,
-body {
+html, body, #root {
   height: 100%;
   margin: 0;
 }
@@ -67,6 +66,8 @@ body {
   background-color: var(--clr-dark);
   font-family: var(--ff-space_mono);
   font-size: var(--fs-body);
+  overflow: hidden;          /* prevent body scrollbar */
+  overflow-x: hidden;
 
   /* stop “scroll chaining” feeling on mobile */
   overscroll-behavior: contain;
@@ -96,15 +97,12 @@ p {
    =============================== */
 
 .page-container {
-  /* This is the usable “viewport” between fixed header and footer */
-  height: calc(100dvh - var(--header-h) - var(--footer-h) - var(--safe-top) - var(--safe-bottom));
-  height: calc(100svh - var(--header-h) - var(--footer-h) - var(--safe-top) - var(--safe-bottom));
+  height: 100dvh;
+  height: 100svh;
 
-  /* Offset so content starts below fixed header/footer */
-  margin-top: calc(var(--header-h) + var(--safe-top));
-  margin-bottom: calc(var(--footer-h) + var(--safe-bottom));
+  padding-top: calc(var(--header-h) + var(--safe-top));
+  padding-bottom: calc(var(--footer-h) + var(--safe-bottom));
 
-  /* Make THIS the scroller */
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;

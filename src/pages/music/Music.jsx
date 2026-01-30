@@ -61,6 +61,15 @@ export const Music = () => {
               width={2286}
               height={2286}
             />
+            <div className="bandcamp-embed-music">
+              <iframe
+                title="Burning Bright by Tides of Static on Bandcamp"
+                src="https://bandcamp.com/EmbeddedPlayer/album=3627720496/size=large/bgcol=333333/linkcol=0f91ff/artwork=small/transparent=true/"
+                seamless
+                loading="lazy"
+              />
+            </div>
+
             <figcaption className="music-credits">
               <ul className="music-credits-list">
                 <li>Written & produced - Paul Cottrell</li>

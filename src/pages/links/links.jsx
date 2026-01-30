@@ -1,11 +1,14 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import VFXScope from "../../components/VFXScope/VFXScope.jsx";
 import "./Links.css";
 import BackgroundVideo from "../../components/BackgroundVideo/BackgroundVideo.jsx";
+import redBlur from "../../img/purple-blur.webp";
 import { FaBandcamp, FaSpotify, FaInstagram, FaYoutube} from "react-icons/fa";
-import { SiApplemusic } from "react-icons/si";
+import { SiApplemusic, SiTidal } from "react-icons/si";
 import { FaSquareLetterboxd } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
 
 export const Links = () => {
   const siteUrl = "https://tidesofstatic.com";
@@ -64,9 +67,24 @@ export const Links = () => {
           <BackgroundVideo />
 
           <div className="links-content">
+            <div className="hero-links">
+              <img
+                src={redBlur}
+                alt="me"
+                loading="eagery"
+                />
+            </div>
             <div className="links-buttons">
               <h3 className="link-sub-head">music</h3>
 
+              <div className="bandcamp-embed">
+                <iframe
+                  title="Burning Bright on Bandcamp"
+                  src="https://bandcamp.com/EmbeddedPlayer/album=3627720496/size=large/bgcol=333333/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/"
+                  seamless
+                  loading="lazy"
+                />
+              </div>
               <a
                 className="btn-link"
                 href="https://tidesofstatic.bandcamp.com/"
@@ -79,7 +97,7 @@ export const Links = () => {
 
               <a
                 className="btn-link"
-                href="..."
+                href="https://open.spotify.com/artist/3VmSWPVbpx3DJKaVRAZhhC?si=61aEN-RyRR2MRlp-foojWQ"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Spotify (opens in a new tab)"
@@ -89,12 +107,22 @@ export const Links = () => {
 
               <a
                 className="btn-link"
-                href="..."
+                href="https://music.apple.com/us/artist/tides-of-static/1872346936"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Apple Music (opens in a new tab)"
               >
                <SiApplemusic/> &nbsp; Apple Music
+              </a>
+
+              <a
+                className="btn-link"
+                href="https://music.apple.com/us/artist/tides-of-static/1872346936"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Apple Music (opens in a new tab)"
+              >
+               <SiTidal /> &nbsp; Tidal
               </a>
 
               <h3 className="link-sub-head">socials</h3>
@@ -127,6 +155,17 @@ export const Links = () => {
               >
                 <FaSquareLetterboxd/> &nbsp; Letterboxd
               </a>
+
+              <h3 className="link-sub-head">contact</h3>
+
+             <Link
+                to="/contact"
+                className="btn-link"
+                aria-label="Contact me"
+              >
+                <MdEmail /> &nbsp; Contact Me
+              </Link>
+
             </div>
           </div>
         </div>

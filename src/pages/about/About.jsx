@@ -2,7 +2,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import "./About.css";
-import first from "../../img/first.webp";
+import redBlur from "../../img/red-blur.webp";
 import tv from "../../img/tv.webp";
 import me from "../../img/me.jpeg";
 import guitar from "../../img/guitar.jpg";
@@ -42,8 +42,9 @@ export const About = () => {
       <section>
         <h1>The need...</h1>
         <img
-          src= {tv}
-          alt="TV in the street"
+          className="first-img"
+          src={redBlur}
+          alt="Me"
           loading="eager"
           fetchPriority="high"
           decoding="async"
@@ -51,12 +52,10 @@ export const About = () => {
           height={600}
         />
         <p>
-          Tides of Static is an attempt to create contemporary music using
-          equipment from the past - machines that hum, click, and drift slightly
-          out of tune. Their imperfections breathing life into modern
-          soundscapes. Each synth hiss and tape flutter, an echo from an earlier
-          time. This is my dialogue with the past - a conversation between human
-          hands and circuitry born before I was.
+          Old machines, new music.
+          <br /><br />
+          The latest project from Paul Cottrell (9 Foot Super Soldier, Cursed Earth),
+          Tides of Static makes use of equipment from the past to create music for the now.
         </p>
       </section>
 
@@ -65,12 +64,13 @@ export const About = () => {
           <h2 className="display">to be...</h2>
         </div>
         <div className="col">
-          <img src={me} alt="Portrait of me" loading="lazy" />
+          <img src={cover} alt="me" loading="lazy" />
           <p>
-            I’m a lifelong musician based in Perth, Western Australia, having
-            moved through a wide range of genres over the years. Tides of Static
-            is where those influences meet my interest in electronic sound,
-            atmosphere, and texture.
+            In his debut EP, <em>Burning Bright</em>, machines hum, click, and whir,
+            in an electronic soundscape that is at once
+            nostalgic and forward-gazing. <br /><br />
+            <em>Burning Bright</em> is Paul’s dialogue with the past — a conversation
+            between human hands and circuitry born before he was.
           </p>
         </div>
       </section>
@@ -79,22 +79,24 @@ export const About = () => {
         <h2 className="display">forever...</h2>
         <div className="col reverse">
           <p>
-            The project is influenced by science fiction, film sound, and the
-            world around me, as well as a long-standing appreciation for the
-            character of older equipment. Those influences inform the mood and
-            texture of the music, giving it a sense of space, tension, and
-            familiarity.
+            A multidisciplinary musician based in Perth, Western Australia,
+            Tides of Static is the culmination of Paul’s many influences and
+            interests — music, science fiction, film sound, and a long-held fascination
+            with analog equipment. <br /><br />
+            It is only when these influences come together with Paul’s unique
+            musicianship that Tides of Static flickers to life; a sense of
+            saudade in every listen.
           </p>
           <img
-            src={guitar}
-            alt="Portrait of me"
+            src={me}
+            alt="me"
             loading="lazy"
           />
         </div>
       </section>
 
       <section className="last">
-        <img src={cover} alt="Burning Bright EP cover art" loading="lazy" decoding="async" />
+        <img src={tv} alt="Burning Bright EP cover art" loading="lazy" decoding="async" />
         <h2 data-text="burning bright." data-z="1">
           burning bright.
         </h2>
