@@ -5,7 +5,7 @@ import VFXScope from "../../components/VFXScope/VFXScope.jsx";
 import "./Links.css";
 import BackgroundVideo from "../../components/BackgroundVideo/BackgroundVideo.jsx";
 import redBlur from "../../img/purple-blur.webp";
-import { FaBandcamp, FaSpotify, FaInstagram, FaYoutube} from "react-icons/fa";
+import { FaBandcamp, FaSpotify, FaInstagram, FaYoutube, FaSoundcloud} from "react-icons/fa";
 import { SiApplemusic, SiTidal } from "react-icons/si";
 import { FaSquareLetterboxd } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
@@ -117,13 +117,24 @@ export const Links = () => {
 
               <a
                 className="btn-link"
-                href="https://music.apple.com/us/artist/tides-of-static/1872346936"
+                href="https://tidal.com/artist/73646217"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Apple Music (opens in a new tab)"
+                aria-label="Tidal (opens in a new tab)"
               >
                <SiTidal /> &nbsp; Tidal
               </a>
+
+              <a
+                className="btn-link"
+                href="https://soundcloud.com/tidesofstatic"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Soundcloud (opens in a new tab)"
+              >
+               <FaSoundcloud /> &nbsp; Soundcloud
+              </a>
+
 
               <h3 className="link-sub-head">socials</h3>
 
