@@ -80,7 +80,7 @@ export const Links = () => {
               <div className="bandcamp-embed">
                 <iframe
                   title="Burning Bright on Bandcamp"
-                  src="https://bandcamp.com/EmbeddedPlayer/album=3627720496/size=large/bgcol=333333/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/"
+                  src="https://bandcamp.com/EmbeddedPlayer/track=3011404585/size=large/bgcol=333333/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/"
                   seamless
                   loading="lazy"
                 />

@@ -67,6 +67,7 @@
   gap: 1rem;
   min-height: 2.75rem;
 }
+
 .field {
   display: grid;
   gap: 0.5rem;
@@ -90,7 +91,6 @@
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  resize: vertical;
   background: rgba(0, 0, 0, 0.22);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 10px;
@@ -99,6 +99,9 @@
   color: rgba(255, 255, 255, 0.95);
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.contact-form textarea {
+  resize: vertical;
 }
 
 .contact-form input::placeholder,

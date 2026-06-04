@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import "./Music.css";
 import VFXScope from "../../components/VFXScope/VFXScope.jsx";
 import albumArt from "../../img/burning-bright-1080.webp";
+import cityVistaArt from "../../img/CityVista.webp";
 
 export const Music = () => {
   const siteUrl = "https://tidesofstatic.com";
@@ -47,6 +48,38 @@ export const Music = () => {
 
       <main className="music">
         <section className="music-container">
+          <h1 className="music-title">city vista</h1>
+          <p className="music-subtitle">My latest single - out now</p>
+
+          <figure className="music-figure">
+            <img
+              src={cityVistaArt}
+              className="music-art"
+              alt="City Vista cover art"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              width={2286}
+              height={2286}
+            />
+            <div className="bandcamp-embed-music">
+              <iframe
+                title="Burning Bright by Tides of Static on Bandcamp"
+                src="https://bandcamp.com/EmbeddedPlayer/track=3011404585/size=large/bgcol=333333/linkcol=0f91ff/artwork=small/transparent=true/"
+                loading="lazy"
+              />
+            </div>
+
+            <figcaption className="music-credits">
+              <ul className="music-credits-list">
+                <li>Written & produced - Paul Cottrell</li>
+                <li>Mastering - <a href="https://www.bergerkstudios.com/" target="blank">Al &quot;Dr Alien&quot; Smith</a></li>
+                <li>Copyright - Paul Cottrell</li>
+              </ul>
+            </figcaption>
+          </figure>
+        </section>
+        <section className="music-container">
           <h1 className="music-title">burning bright EP</h1>
           <p className="music-subtitle">My first studio EP - out now</p>
 
@@ -73,7 +106,7 @@ export const Music = () => {
             <figcaption className="music-credits">
               <ul className="music-credits-list">
                 <li>Written & produced - Paul Cottrell</li>
-                <li>Mastering - <a href="https://www.thrash-wolf.com/" target="blank">Al &quot;Dr Alien&quot; Smith</a></li>
+                <li>Mastering - <a href="https://www.bergerkstudios.com/" target="blank">Al &quot;Dr Alien&quot; Smith</a></li>
                 <li>Logo - <a href="https://www.thrash-wolf.com/" target="blank">ThrashWolf</a></li>
                 <li>Copyright - Paul Cottrell</li>
               </ul>

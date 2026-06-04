@@ -58,18 +58,6 @@ export const Home = () => {
         <meta name="twitter:description" content={description} />
       </Helmet>
 
-      <p className="home-announcement">
-        Announcing my first studio EP <strong>‘Burning Bright’</strong>{" "}
-        <a
-          className="ep-link"
-          href="https://tidesofstatic.bandcamp.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          out now!
-        </a>
-      </p>
-
       <div className="home-planets">
         <Planets />
       </div>

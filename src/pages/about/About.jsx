@@ -55,7 +55,7 @@ export const About = () => {
           Old machines, new music.
           <br /><br />
           The latest project from Paul Cottrell (9 Foot Super Soldier, Cursed Earth),
-          Tides of Static makes use of equipment from the past to create music for the now.
+          Tides of Static makes use of equipment from the past to create music for now.
         </p>
       </section>
 
@@ -85,7 +85,7 @@ export const About = () => {
             with analog equipment. <br /><br />
             It is only when these influences come together with Paul’s unique
             musicianship that Tides of Static flickers to life; a sense of
-            saudade in every listen.
+            <em>saudade</em> in every listen.
           </p>
           <img
             src={me}
